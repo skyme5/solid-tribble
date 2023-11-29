@@ -1,73 +1,53 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## API for managing users
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Development Setup
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+1. Clone and install the dependencies
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ pnpm install
+```
+git clone git@github.com:skyme5/stunning-chainsaw.git
+cd stunning-chainsaw/user-manager-backend
+pnpm install
 ```
 
-## Running the app
+2. Setup env file by copying `.env.example` to `.env`, change the required parameters
+3. Start development server by running
 
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+```
+pnpm start:dev
 ```
 
-## Test
+This will start server on port 3000 and Swagger Documentation will be available at http://localhost:3000/api/
 
-```bash
-# unit tests
-$ pnpm run test
+### Requirements
 
-# e2e tests
-$ pnpm run test:e2e
+1. Design database where following user information is stored
 
-# test coverage
-$ pnpm run test:cov
-```
+   - [x] First name and last name Both are mandatory
+   - [x] Email, Mobile number Both should be unique, Mandatory, Valid Email, Valid 10 digit number
+   - [x] Birthdate Optional
+   - [x] Addresses One user can have multiple addresses, At least one address is mandatory
+     - [x] Address line 1 Mandatory
+     - [x] Address line 2 Optional
+     - [x] Pincode Mandatory, should be min 4 length digit, max 6 length digit
+     - [x] City Mandatory
+     - [x] State Mandatory
+     - [x] Type Home or Office
 
-## Support
+2. REST API endpoint to search users Only endpoint, no need for screen
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+   - [x] Add search endpoint with following filters Endpoint should return all users matching filters
+   - [x] Search by string (on first name, last name, email).
+   - [x] If one of three fields contains a given string as substring record is considered matched
+   - [x] Search is case insensitive
+   - [x] Search on Age
+   - [x] Ex. should able to search a user with age 25 years greater equal
+   - [x] Ex. should able to search users with ageless equal than 21 years
+   - [x] Search by City
+   - [x] Ex. I send “Mumbai” then a user with one of the addresses of Mumbai is returned
+   - [x] Note: If multiple filters are applied then users matching all filters are returned only.
+   - [x] Ex. send “Mumbai” and age greater equal 18. Then all users with “Mumbai” city address and age greater equal to 18 are returned.
+   - [x] Make sure filters are performed using database query instead of in-memory filter
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+3. REST API endpoint to update the user information (including address)
+   - [x] Proper validation has been done
